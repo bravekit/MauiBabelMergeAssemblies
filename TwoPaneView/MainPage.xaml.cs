@@ -39,7 +39,9 @@ public partial class MainPage : ContentPage
         twoPaneView.Pane2Length = new GridLength(Pane2Length.Value, GridUnitType.Star);
     }
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
     protected override async void OnAppearing()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     {
         base.OnAppearing();
         System.Diagnostics.Debug.Write("TwoPaneViewPage.OnAppearing - hinge angle prepped", "JWM");

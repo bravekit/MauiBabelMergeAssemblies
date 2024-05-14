@@ -1,0 +1,36 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<UsingTask TaskName="Babel" AssemblyFile="$(ProjectDir)Babel\Babel.Build.dll" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'" />
+
+	<Target Name="Obfuscate" AfterTargets="Compile" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<ItemGroup>
+			<_BabelSearchDirectories Include="@(ReferencePathWithRefAssemblies->'%(rootdir)%(directory)')" Condition="'%(Extension)' == '.dll'" />
+			<BabelSearchDirectories Include="@(_BabelSearchDirectories-&gt;Distinct())" />
+		</ItemGroup>
+
+
+		<ItemGroup>
+			<MergeAssembly Include="$(ProjectDir)\..\SecondAssembly\bin\Release\net8.0\TestAssembly.dll" />
+		</ItemGroup>
+
+		<ItemGroup>
+			<RuleFile Include="$(ProjectDir)NotRenameSecondAssemblyRule.xml" />
+		</ItemGroup>
+		
+
+		<Babel InputFile="$(ProjectDir)$(IntermediateOutputPath)$(TargetFileName)"
+			   OutputFile="$(ProjectDir)$(IntermediateOutputPath)$(TargetFileName)" GenerateDebug="false" StringEncryption="hash"
+			   SearchDirectories="@(BabelSearchDirectories)" ObfuscateTypes="true" ObfuscateEvents="true" ObfuscateMethods="true"
+			   ObfuscateProperties="true" ObfuscateFields="true" ObfuscateXaml="true" VirtualFunctions="true" UnicodeNormalization="false"
+			   FlattenNamespaces="true" ResourceEncryption="true" ControlFLowObfuscation="if=on;switch=on;case=on;call=on"
+			   ControlFLowIterations="3" GenerateLogFile="true" GenerateMapOutFile="true" RulesFiles="@(RuleFile)" ShowLogo="true" ShowStatistics="true"
+			MergeAssemblies="@(MergeAssembly)" Internalize="true" 
+			  />
+
+		<!--<ItemGroup>
+			<ResolvedAssemblies Remove="@(MergeAssemblies)" />
+			<ResolvedUserAssemblies Remove="@(MergeAssemblies)" />
+		</ItemGroup>-->
+	</Target>
+
+</Project>

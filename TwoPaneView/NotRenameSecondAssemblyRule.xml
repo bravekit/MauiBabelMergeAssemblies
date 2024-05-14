@@ -1,0 +1,7 @@
+<Rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetAssembly="TestAssembly">
+
+	<Rule name="not rename EFDAL" feature="renaming" exclude="true" applyToMembers="true">
+		<Target>All</Target>
+		<Pattern>*</Pattern>
+	</Rule>
+</Rules>
