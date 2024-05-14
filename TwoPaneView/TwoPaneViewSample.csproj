@@ -81,6 +81,6 @@
 	  <ProjectReference Include="..\SecondAssembly\TestAssembly.csproj" />
 	</ItemGroup>
 
-	<Import Project="BabelObfuscate.targets" Condition=" '$(Configuration)' == 'Release' " />
+	<Import Project="BabelObfuscate.props" Condition=" '$(Configuration)' == 'Release' " />
 	
 </Project>

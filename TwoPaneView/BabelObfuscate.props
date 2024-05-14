@@ -27,10 +27,14 @@
 			MergeAssemblies="@(MergeAssembly)" Internalize="true" 
 			  />
 
-		<!--<ItemGroup>
-			<ResolvedAssemblies Remove="@(MergeAssemblies)" />
-			<ResolvedUserAssemblies Remove="@(MergeAssemblies)" />
-		</ItemGroup>-->
+		<ItemGroup>
+			<ResolvedAssemblies Remove="@(MergeAssembly)" />
+			<ResolvedUserAssemblies Remove="@(MergeAssembly)" />
+		</ItemGroup>
 	</Target>
 
+
+	<Target Name="RemoveAssembly" AfterTargets="Obfuscate" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		
+	</Target>
 </Project>
